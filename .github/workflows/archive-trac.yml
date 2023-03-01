@@ -16,7 +16,7 @@ jobs:
              https://trac.ietf.org/trac/wgchairs || true
         tar czvf trac.ietf.org.tgz trac.ietf.org
   
-    - name: Upload Build Artifacts
+    - name: Upload archive tarball
       if: ${{ always() }}
       uses: actions/upload-artifact@v3
       with:
