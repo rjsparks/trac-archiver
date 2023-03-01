@@ -1,0 +1,21 @@
+on:
+  workflow_dispatch:
+  
+jobs:
+  scrape-trac:
+    name: Scrape trac.ietf.org
+    runs-on: ubuntu-latest
+    steps:
+    - name: wget pages
+      run: |
+        wget --recursive --page-requisites --html-extension \
+             --convert-links --restrict-file-names=windows  \
+             --domains trac.ietf.org --no-parent \
+             https://trac.ietf.org/trac/wgchairs
+        tar czvf trac.ietf.org.tgz trac.ietf.org
+  
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: archive.tgz
+        path: trac.ietf.org
