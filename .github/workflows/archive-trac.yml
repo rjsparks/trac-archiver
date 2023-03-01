@@ -10,10 +10,10 @@ jobs:
     steps:
     - name: wget pages
       run: |
-        wget --recursive --page-requisites --html-extension \
+        wget --recursive --page-requisites --adjust-extension \
              --convert-links --restrict-file-names=windows  \
              --domains trac.ietf.org --no-parent \
-             https://trac.ietf.org/trac/wgchairs
+             https://trac.ietf.org/trac/wgchairs || true
         tar czvf trac.ietf.org.tgz trac.ietf.org
   
     - name: Upload Build Artifacts
