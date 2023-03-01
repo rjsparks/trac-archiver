@@ -17,6 +17,7 @@ jobs:
         tar czvf trac.ietf.org.tgz trac.ietf.org
   
     - name: Upload Build Artifacts
+      if: ${{ always() }}
       uses: actions/upload-artifact@v3
       with:
         name: trac_archive
