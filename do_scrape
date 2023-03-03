@@ -1,0 +1,20 @@
+#!bash
+rm -rf trac.ietf.org trac.ietf.org.forthechrome trac.ietf.org.assemble
+mkdir trac.ietf.org.assemble
+for wikiname in wgchairs secdispatch;
+do
+
+    wget --quiet --page-requisites --restrict-file-names=windows --domains trac.ietf.org --no-parent https://trac.ietf.org/trac/${wikiname}/
+    mv trac.ietf.org trac.ietf.org.forthechrome
+    wget --quiet --recursive --page-requisites --html-extension --convert-links --restrict-file-names=windows --domains trac.ietf.org --no-parent https://trac.ietf.org/trac/${wikiname}
+    rm -rf trac.ietf.org/trac/${wikiname}/chrome
+    rsync -a trac.ietf.org.forthechrome/trac/${wikiname}/chrome/ trac.ietf.org/trac/${wikiname}/chrome/
+    rm -rf trac.ietf.org.forthechrome
+    rsync -a trac.ietf.org/ trac.ietf.org.assemble/
+    rm -rf trac.ietf.org
+
+done
+mv trac.ietf.org.assemble trac.ietf.org
+export LC_CTYPE=C
+export LANG=C
+find trac.ietf.org -type f -print0 | xargs -0 sed -I '' -e 's/css\.html/css/g' -e 's/png\.html/png/g' -e s'/gif\.html/gif/g'
