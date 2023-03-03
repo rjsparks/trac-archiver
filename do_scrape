@@ -1,7 +1,7 @@
 #!bash
 rm -rf trac.ietf.org trac.ietf.org.forthechrome trac.ietf.org.assemble
 mkdir trac.ietf.org.assemble
-for wikiname in wgchairs secdispatch;
+for wikiname in app wgchairs secdispatch;
 do
 
     wget --quiet --page-requisites --restrict-file-names=windows --domains trac.ietf.org --no-parent https://trac.ietf.org/trac/${wikiname}/
@@ -17,4 +17,4 @@ done
 mv trac.ietf.org.assemble trac.ietf.org
 export LC_CTYPE=C
 export LANG=C
-find trac.ietf.org -type f -print0 | xargs -0 sed -I '' -e 's/css\.html/css/g' -e 's/png\.html/png/g' -e s'/gif\.html/gif/g'
+find trac.ietf.org -type f -print0 | xargs -0 sed -i -e "s/css\.html/css/g" -e "s/png\.html/png/g" -e s"/gif\.html/gif/g"
